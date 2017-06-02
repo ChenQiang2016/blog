@@ -29,12 +29,12 @@ public class AdminServiceImpl implements AdminService {
 			throw new BusiException(Config.PARAMS_ERROR_CODE, "用户名或密码错误");
 		}
 		Admin admin = list.get(0);
-		
+
 		Admin record = new Admin();
 		record.setAdminId(admin.getAdminId());
 		record.setLastLoginTime(new Date());
 		adminDao.updateByPrimaryKeySelective(record);
-		
+
 		return admin;
 	}
 
@@ -47,8 +47,8 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Page<Admin> page(Map<String, Object> map) {
 		Page<Admin> page = new Page<Admin>();
-		page.setCurrentPage((Integer)map.get("currentPage"));
-		page.setPageSize((Integer)map.get("pageSize"));
+		page.setCurrentPage((Integer) map.get("currentPage"));
+		page.setPageSize((Integer) map.get("pageSize"));
 		map.put("limitStart", page.getLimitStart());
 		page.setRows(adminDao.selectPageByMap(map));
 		page.setTotalCount(adminDao.countPageByMap(map));
